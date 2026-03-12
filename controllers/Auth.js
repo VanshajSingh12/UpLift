@@ -227,3 +227,51 @@ exports.login = async (req, res) => {
         })
     }
 }
+
+//change password
+exports.changePassword = async (req, res) => {
+    try {
+        const { oldPassword, newPassword } = req.body;
+        const userId = req.user.id;
+
+        // 1. Validation
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ success: false, message: "All fields are required" });
+        }
+
+        // 2. Get user with password explicitly selected
+        const userDetails = await User.findById(userId).select("+password");
+        if (!userDetails) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // 3. Verify Old Password
+        const isPasswordMatch = await bcrypt.compare(oldPassword, userDetails.password);
+        if (!isPasswordMatch) {
+            return res.status(401).json({ success: false, message: "Old password is incorrect" });
+        }
+
+        // 4. Update and Save
+        // Using save() instead of findByIdAndUpdate allows Mongoose 'save' hooks to run
+        const encryptedPassword = await bcrypt.hash(newPassword, 10);
+        userDetails.password = encryptedPassword;
+        await userDetails.save();
+
+        // 5. Send Email (Non-blocking)
+        try {
+            await mailSender(
+                userDetails.email,
+                "Password Updated",
+                passwordUpdated(userDetails.email, `Success for ${userDetails.firstName}`)
+            );
+        } catch (mailError) {
+            console.error("Email failed to send, but password was updated:", mailError);
+            // Do not return error here; the password change was successful
+        }
+
+        return res.status(200).json({ success: true, message: "Password updated successfully" });
+
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
