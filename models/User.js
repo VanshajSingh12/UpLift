@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
         enum: ["Admin", "Student", "Instructor"],//can only be three things, therefore use enum 
         required: true,
     },
-    additionalDetails: {
+    additionalDetails: {//this is profile
         type: mongoose.Schema.Types.ObjectId,
         //In Mongoose, mongoose.Schema.Types.ObjectId is a specific data type used to store a unique identifier for a document. If you think of a SQL database, this is similar to a Foreign Key.
         reqeuired: true,
