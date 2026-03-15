@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema({
-    couseName: {
+    courseName: {
         type: String,
         required: true,
     },
-    couseDescription: {
+    courseDescription: {
         type: String,
     },
     instructor: {
@@ -37,7 +37,7 @@ const courseSchema = new mongoose.Schema({
     tag: {
         type: String,
     },
-    studentsenrolled: [{
+    studentsEnrolled: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "User",
