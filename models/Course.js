@@ -44,10 +44,10 @@ const courseSchema = new mongoose.Schema({
         ref: "User",
     }],
     instructions: {
-        type: [string],
+        type: [String],
     },
     status: {
-        type: string,
+        type: String,
         enum: ["Draft", "Published"],
     },
 });

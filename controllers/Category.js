@@ -1,7 +1,11 @@
 const Category = require("../models/Category");
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
 //create tag handler function
-exports.createCategory = async (requestAnimationFrame, res) => {
+exports.createCategory = async (req, res) => {
     try {
         //fetch data from req of admin
         const { name, description } = req.body;
@@ -18,7 +22,7 @@ exports.createCategory = async (requestAnimationFrame, res) => {
             description: description,
             //not entered courses here, will do that while creating course
         });
-        console.log(tagDetails);
+        console.log(CategoryDetails);
 
         return res.status(200).json({
             success: true,
@@ -34,7 +38,7 @@ exports.createCategory = async (requestAnimationFrame, res) => {
 }
 
 //getAlltags handler function
-exports.showAllCategory = async (req, res) => {
+exports.showAllCategories = async (req, res) => {
     try {
         const allCategories = await Category.find({}, { name: true, description: true });
         res.status(200).json({
@@ -59,7 +63,7 @@ exports.categoryPageDetails = async (req, res) => {
         // Get courses for the specified category
         const selectedCategory = await Category.findById(categoryId)
             .populate({
-                path: "courses",
+                path: "course",
                 match: { status: "Published" },
                 populate: "ratingAndReviews",
             })
@@ -91,7 +95,7 @@ exports.categoryPageDetails = async (req, res) => {
                 ._id
         )
             .populate({
-                path: "courses",
+                path: "course",
                 match: { status: "Published" },
             })
             .exec()
@@ -99,7 +103,7 @@ exports.categoryPageDetails = async (req, res) => {
         // Get top-selling courses across all categories
         const allCategories = await Category.find()
             .populate({
-                path: "courses",
+                path: "course",
                 match: { status: "Published" },
                 populate: {
                     path: "instructor",
