@@ -50,13 +50,13 @@ export const HomePageExplore = [
         courses: [
             {
                 heading: "Java",
-                description: "This course covers the basic concepts of HTML including creating and structuring web pages, adding text, links, images, and more.",
+                description: "This course covers the basic concepts of Java including syntax and logic, OOPS, Algorithms, and more.",
                 level: 'Beginner',
                 lessionNumber: 6
             },
             {
                 heading: "Python",
-                description: "This course explores advanced topics in HTML5 and CSS3, including animations, transitions, and layout techniques",
+                description: "This course explores topics in Python, including syntax, Data Structures, and Libraries",
                 level: 'Beginner',
                 lessionNumber: 6
             },
@@ -73,19 +73,21 @@ export const HomePageExplore = [
         courses: [
             {
                 heading: "Flask",
-                description: "This course covers the basic concepts of HTML including creating and structuring web pages, adding text, links, images, and more.",
+                description:
+                    "This course covers the fundamental concepts of Flask including creating and structuring web applications, adding routes, templates, databases, and more.",
                 level: 'Beginner',
                 lessionNumber: 6
             },
             {
                 heading: "Django",
-                description: "This course explores advanced topics in HTML5 and CSS3, including animations, transitions, and layout techniques",
+                description:
+                    "This course covers the fundamental concepts of Django including creating and structuring web applications, adding models, views, templates, and more",
                 level: 'Beginner',
                 lessionNumber: 6
             },
             {
                 heading: "Fast API",
-                description: "This course teaches responsive web design techniques, allowing web pages to adapt to different devices and screen sizes",
+                description: "This course covers the fundamental concepts of FastAPI including creating and structuring web applications, adding routes, schemas, asynchronous code, and more.",
                 level: 'Beginner',
                 lessionNumber: 6
             },
@@ -96,19 +98,20 @@ export const HomePageExplore = [
         courses: [
             {
                 heading: "Next.js",
-                description: "This course covers the basic concepts of HTML including creating and structuring web pages, adding text, links, images, and more.",
+                description: "This course covers the fundamental concepts of Next.js including creating and structuring web applications, adding routing, rendering strategies, data fetching, and more.",
                 level: 'Beginner',
                 lessionNumber: 6
             },
             {
                 heading: "Next.js",
-                description: "This course explores advanced topics in HTML5 and CSS3, including animations, transitions, and layout techniques",
+                description: "This course covers the fundamental concepts of Next.js including creating and structuring web applications, adding routing, rendering strategies, data fetching, and more.",
                 level: 'Beginner',
                 lessionNumber: 6
             },
             {
                 heading: "Sanity",
-                description: "This course teaches responsive web design techniques, allowing web pages to adapt to different devices and screen sizes",
+                description:
+                    "This course covers the fundamental concepts of Sanity including creating and structuring content schemas, adding datasets, studio customization, and more.",
                 level: 'Beginner',
                 lessionNumber: 6
             },
