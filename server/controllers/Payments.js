@@ -52,7 +52,7 @@ exports.capturePayment = async (req, res) => {
     const options = {
         amount: total_amount * 100,//because in rzrpay,100=1
         currency: "INR",
-        receipt: Math.random(Date.now()).toString(),
+        receipt: (Math.random() + Date.now()).toString(),
     }
 
     try {
