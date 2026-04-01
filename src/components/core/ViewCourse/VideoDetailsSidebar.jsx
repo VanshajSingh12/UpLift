@@ -84,8 +84,8 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                   </span> */}
                                     <span
                                         className={`${activeStatus === course?.sectionName
-                                                ? "rotate-0"
-                                                : "rotate-180"
+                                            ? "rotate-0"
+                                            : "rotate-180"
                                             } transition-all duration-500`}
                                     >
                                         <BsChevronDown />
@@ -99,8 +99,8 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
                                     {course.subSection.map((topic, i) => (
                                         <div
                                             className={`flex gap-3  px-5 py-2 ${videoBarActive === topic._id
-                                                    ? "bg-yellow-200 font-semibold text-richblack-800"
-                                                    : "hover:bg-richblack-900"
+                                                ? "bg-yellow-200 font-semibold text-richblack-800"
+                                                : "hover:bg-richblack-900"
                                                 } `}
                                             key={i}
                                             onClick={() => {
@@ -127,3 +127,4 @@ export default function VideoDetailsSidebar({ setReviewModal }) {
         </>
     )
 }
+
