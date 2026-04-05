@@ -11,6 +11,7 @@ module.exports = {
             white: "#fff",
             black: "#000",
             transparent: "#ffffff00",
+
             richblack: {
                 5: "#F1F2FF",
                 25: "#DBDDEA",
@@ -25,6 +26,7 @@ module.exports = {
                 800: "#161D29",
                 900: "#000814",
             },
+
             richblue: {
                 5: "#ECF5FF",
                 25: "#C6D6E1",
@@ -123,6 +125,7 @@ module.exports = {
                 800: "#171717",
                 900: "#141414",
             },
+
         },
         extend: {
             maxWidth: {

@@ -16,7 +16,7 @@ body {
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-    width: 3px;
+    width: 6px;
 }
 
 *::-webkit-scrollbar-track {
@@ -50,6 +50,7 @@ details>summary::-webkit-details-marker {
     height: 56px;
     border-radius: 50%;
     border: 9px solid #f1f2ff;
+
     animation: spinner-bulqg1 0.8s infinite linear alternate,
         spinner-oaa3wk 1.6s infinite linear;
 }
@@ -93,7 +94,8 @@ details>summary::-webkit-details-marker {
     background: linear-gradient(111.93deg,
             rgba(14, 26, 45, 0.24) -1.4%,
             rgba(17, 30, 50, 0.38) 104.96%);
-    /* backdrop-filter: blur(26px); */
+
+    /* backdrop-filter: blur(26px);
 }
 
 .homepage_bg {
@@ -189,11 +191,13 @@ details>summary::-webkit-details-marker {
 .active-icon {
     fill: #ffd60a !important;
     color: #ffd60a !important;
+
 }
 
 .inactive-icon {
     fill: #838894;
     color: #838894;
+
 }
 
 /* Buttons */
@@ -224,11 +228,11 @@ details>summary::-webkit-details-marker {
 }
 
 .lable-style {
-    @apply text-[14px] text-richblack-5;
+    @apply text-[14px] text-richblack-50;
 }
 
 .form-style {
-    @apply rounded-lg bg-richblack-700 p-3 text-[16px] leading-[24px] text-richblack-5 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-richblack-400 focus:outline-none;
+    @apply rounded-lg border border-richblack-700 p-3 text-[16px] leading-[24px] text-richblack-5 shadow-[0_1px_0_0] shadow-white/50 placeholder:text-richblack-400 focus:outline-none;
 }
 
 .section_heading {
