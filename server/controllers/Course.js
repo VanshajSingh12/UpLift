@@ -155,17 +155,13 @@ exports.editCourse = async (req, res) => {
 
         // Update only the fields that are present in the request body
         for (const key in updates) {
-            // if (updates.hasOwnProperty(key)) {
-            //     if (key === "tag" || key === "instructions") {
-            //         course[key] = JSON.parse(updates[key])
-            //     } else {
-            //         course[key] = updates[key]
-            //     }
-            // }
             if (Object.prototype.hasOwnProperty.call(updates, key)) {
+                // Safeguard: Don't let the instructor be changed
+                if (key === "instructor") continue;
+
                 if (key === "tag" || key === "instructions") {
-                    // Add a safety check to ensure we only parse strings
-                    if (typeof updates[key] === "string") {
+                    // Only parse if it's a string (prevents crash on Publish step)
+                    if (typeof updates[key] === "string" && updates[key].length > 0) {
                         course[key] = JSON.parse(updates[key])
                     }
                 } else {
@@ -201,7 +197,7 @@ exports.editCourse = async (req, res) => {
             data: updatedCourse,
         })
     } catch (error) {
-        console.error(error)
+        console.error("Edit course error:", error)
         res.status(500).json({
             success: false,
             message: "Internal server error",
@@ -430,6 +426,7 @@ exports.getInstructorCourses = async (req, res) => {
     try {
         // Get the instructor ID from the authenticated user or request body
         const instructorId = req.user.id
+        console.log("fetching courses for instructor:", instructorId)
 
         // Find all courses belonging to the instructor
         const instructorCourses = await Course.find({
@@ -462,7 +459,7 @@ exports.deleteCourse = async (req, res) => {
         }
 
         // Unenroll students from the course
-        const studentsEnrolled = course.studentsEnroled
+        const studentsEnrolled = course.studentsEnrolled
         for (const studentId of studentsEnrolled) {
             await User.findByIdAndUpdate(studentId, {
                 $pull: { courses: courseId },

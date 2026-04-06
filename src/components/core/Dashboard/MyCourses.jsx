@@ -12,16 +12,39 @@ export default function MyCourses() {
     const navigate = useNavigate()
     const [courses, setCourses] = useState([])
 
+    // useEffect(() => {
+    //     const fetchCourses = async () => {
+    //         const result = await fetchInstructorCourses(token)
+    //         if (result) {
+    //             setCourses(result)
+    //         }
+    //     }
+    //     fetchCourses()
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
     useEffect(() => {
         const fetchCourses = async () => {
-            const result = await fetchInstructorCourses(token)
-            if (result) {
-                setCourses(result)
+            // 1. Log the token to see if it's actually there
+            console.log("DEBUG: Token value is:", token);
+
+            // 2. If token is null/undefined, don't even try the API
+            if (!token) {
+                console.log("Waiting for token...");
+                return;
             }
-        }
-        fetchCourses()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+
+            try {
+                const result = await fetchInstructorCourses(token);
+                if (result) {
+                    setCourses(result);
+                }
+            } catch (error) {
+                console.error("Failed to fetch courses in component:", error);
+            }
+        };
+
+        fetchCourses();
+    }, [token]);
 
     return (
         <div>

@@ -71,9 +71,9 @@ function Navbar() {
                                                 ) : (subLinks && subLinks.length) ? (
                                                     <>
                                                         {subLinks
-                                                            ?.filter(
-                                                                (subLink) => subLink?.courses?.length > 0
-                                                            )
+                                                            // ?.filter(
+                                                            //     (subLink) => subLink?.courses?.length > 0
+                                                            // )
                                                             ?.map((subLink, i) => (
                                                                 <Link
                                                                     to={`/catalog/${subLink.name
