@@ -155,9 +155,19 @@ exports.editCourse = async (req, res) => {
 
         // Update only the fields that are present in the request body
         for (const key in updates) {
-            if (updates.hasOwnProperty(key)) {
+            // if (updates.hasOwnProperty(key)) {
+            //     if (key === "tag" || key === "instructions") {
+            //         course[key] = JSON.parse(updates[key])
+            //     } else {
+            //         course[key] = updates[key]
+            //     }
+            // }
+            if (Object.prototype.hasOwnProperty.call(updates, key)) {
                 if (key === "tag" || key === "instructions") {
-                    course[key] = JSON.parse(updates[key])
+                    // Add a safety check to ensure we only parse strings
+                    if (typeof updates[key] === "string") {
+                        course[key] = JSON.parse(updates[key])
+                    }
                 } else {
                     course[key] = updates[key]
                 }

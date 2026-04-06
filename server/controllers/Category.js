@@ -44,7 +44,7 @@ exports.showAllCategories = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "All categories are returned successfully",
-            allCategories,
+            data: allCategories,
         })
     }
     catch (error) {

@@ -12,7 +12,7 @@ exports.createSubSection = async (req, res) => {
         const video = req.files.video
 
         // Check if all necessary fields are provided
-        if (!sectionId || !title || !description || !video || !timeDuration) {
+        if (!sectionId || !title || !description || !video) {
             return res
                 .status(404)
                 .json({ success: false, message: "All Fields are Required" })
@@ -22,7 +22,10 @@ exports.createSubSection = async (req, res) => {
         // Upload the video file to Cloudinary
         const uploadDetails = await uploadImageToCloudinary(
             video,
-            process.env.FOLDER_NAME
+            process.env.FOLDER_NAME,
+            null,
+            null,
+            "video"
         )
         console.log(uploadDetails)
         // Create a new sub-section with the necessary information in DB
