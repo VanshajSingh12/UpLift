@@ -8,7 +8,7 @@ import { Autoplay, FreeMode, Navigation, Pagination } from 'swiper'
 
 import Course_Card from './Course_Card'
 
-const CourseSlider = ({ Courses }) => {
+const CourseSlider = ({ Courses = [] }) => {
     return (
         <>
             {Courses?.length ? (

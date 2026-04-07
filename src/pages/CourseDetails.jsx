@@ -15,6 +15,7 @@ import { fetchCourseDetails } from "../services/operations/courseDetailsAPI"
 import { buyCourse } from "../services/operations/studentFeaturesAPI"
 import GetAvgRating from "../utils/avgRating"
 import Error from "./Error"
+import CourseSlider from "../components/core/Catalog/CourseSlider"
 
 function CourseDetails() {
     const { user } = useSelector((state) => state.profile)
@@ -255,6 +256,14 @@ function CourseDetails() {
                             <p className="text-richblack-50">
                                 {instructor?.additionalDetails?.about}
                             </p>
+                        </div>
+                        <div className="mx-auto box-content px-4 text-start text-richblack-5 lg:w-[1260px]">
+                            <p className="section_heading">Related Courses</p>
+                            <div className="py-8">
+                                {/* Pass the related courses array. 
+                                We use [] as a fallback to prevent the destructuring crash */}
+                                <CourseSlider Courses={response?.data?.relatedCourses || []} />
+                            </div>
                         </div>
                     </div>
                 </div>

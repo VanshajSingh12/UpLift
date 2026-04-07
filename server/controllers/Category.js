@@ -63,7 +63,7 @@ exports.categoryPageDetails = async (req, res) => {
         // Get courses for the specified category
         const selectedCategory = await Category.findById(categoryId)
             .populate({
-                path: "course",
+                path: "courses",
                 match: { status: "Published" },
                 populate: "ratingAndReviews",
             })
@@ -78,7 +78,7 @@ exports.categoryPageDetails = async (req, res) => {
                 .json({ success: false, message: "Category not found" })
         }
         // Handle the case when there are no courses
-        if (selectedCategory.course.length === 0) {
+        if (selectedCategory.courses.length === 0) {
             console.log("No courses found for the selected category.")
             return res.status(404).json({
                 success: false,
@@ -95,7 +95,7 @@ exports.categoryPageDetails = async (req, res) => {
                 ._id
         )
             .populate({
-                path: "course",
+                path: "courses",
                 match: { status: "Published" },
             })
             .exec()
@@ -103,14 +103,14 @@ exports.categoryPageDetails = async (req, res) => {
         // Get top-selling courses across all categories
         const allCategories = await Category.find()
             .populate({
-                path: "course",
+                path: "courses",
                 match: { status: "Published" },
                 populate: {
                     path: "instructor",
                 },
             })
             .exec()
-        const allCourses = allCategories.flatMap((category) => category.course)
+        const allCourses = allCategories.flatMap((category) => category.courses)
         const mostSellingCourses = allCourses
             .sort((a, b) => b.sold - a.sold)
             .slice(0, 10)

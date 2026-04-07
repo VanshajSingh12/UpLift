@@ -46,12 +46,14 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
             throw new Error(orderResponse.data.message);
         }
         console.log("PRINTING orderResponse", orderResponse);
+
+        const { amount, currency, id: order_id } = orderResponse.data.data;
         //options
         const options = {
-            key: process.env.RAZORPAY_KEY,
-            currency: orderResponse.data.message.currency,
-            amount: `${orderResponse.data.message.amount}`,
-            order_id: orderResponse.data.message.id,
+            key: process.env.REACT_APP_RAZORPAY_KEY,
+            currency: currency,
+            amount: `${amount}`,
+            order_id: order_id,
             name: "UpLift",
             description: "Thank You for Purchasing the Course",
             image: rzpLogo,
