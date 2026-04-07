@@ -164,6 +164,13 @@ exports.getEnrolledCourses = async (req, res) => {
                 },
             })
             .exec()
+        if (!userDetails) {
+            return res.status(400).json({
+                success: false,
+                message: `Could not find user with id: ${userDetails}`,
+            })
+        }
+
         userDetails = userDetails.toObject()
         var SubsectionLength = 0
         for (var i = 0; i < userDetails.courses.length; i++) {
@@ -183,7 +190,7 @@ exports.getEnrolledCourses = async (req, res) => {
                 courseID: userDetails.courses[i]._id,
                 userId: userId,
             })
-            courseProgressCount = courseProgressCount?.completedVideos.length
+            courseProgressCount = courseProgressCount?.completedVideos.length || 0
             if (SubsectionLength === 0) {
                 userDetails.courses[i].progressPercentage = 100
             } else {
@@ -196,12 +203,6 @@ exports.getEnrolledCourses = async (req, res) => {
             }
         }
 
-        if (!userDetails) {
-            return res.status(400).json({
-                success: false,
-                message: `Could not find user with id: ${userDetails}`,
-            })
-        }
         return res.status(200).json({
             success: true,
             data: userDetails.courses,
