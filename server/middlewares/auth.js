@@ -57,7 +57,7 @@ exports.auth = async (req, res, next) => {
             (req.header("Authorization") ? req.header("Authorization").replace("Bearer ", "") : null);
 
         // DEBUG: Check your server terminal to see if the token is actually arriving
-        console.log("DEBUG: Token found is ->", token ? "Token Received" : "NULL");
+        // console.log("DEBUG: Token found is ->", token ? "Token Received" : "NULL");
 
         if (!token || token === "null" || token === "undefined") {
             return res.status(401).json({

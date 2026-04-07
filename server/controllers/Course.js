@@ -431,12 +431,40 @@ exports.getInstructorCourses = async (req, res) => {
         // Find all courses belonging to the instructor
         const instructorCourses = await Course.find({
             instructor: instructorId,
-        }).sort({ createdAt: -1 })
+        })
+            .populate({
+                path: "courseContent",
+                populate: {
+                    path: "subSection",
+                },
+            })
+            .sort({ createdAt: -1 })
+
+        const coursesWithDuration = instructorCourses.map((course) => {
+            let totalDurationInSeconds = 0
+
+            // Iterate through each Section
+            course.courseContent.forEach((section) => {
+                // Iterate through each SubSection (Video)
+                section.subSection.forEach((subSection) => {
+                    // Convert to number and add to total
+                    const time = parseInt(subSection.timeDuration) || 0
+                    totalDurationInSeconds += time
+                })
+            })
+
+            // Return a new object that includes the totalDuration property
+            // We use toObject() so we can add a new virtual field
+            return {
+                ...course.toObject(),
+                totalDuration: totalDurationInSeconds
+            }
+        })
 
         // Return the instructor's courses
         res.status(200).json({
             success: true,
-            data: instructorCourses,
+            data: coursesWithDuration,
         })
     } catch (error) {
         console.error(error)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
+import { AiOutlineMenu, AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai"
 import { BsChevronDown } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { Link, matchPath, useLocation } from "react-router-dom"
@@ -16,6 +16,8 @@ function Navbar() {
     const { user } = useSelector((state) => state.profile)
     const { totalItems } = useSelector((state) => state.cart)
     const location = useLocation()
+
+    const [isOpen, setIsOpen] = useState(false);
 
     const [subLinks, setSubLinks] = useState([])
     const [loading, setLoading] = useState(false)
@@ -36,6 +38,7 @@ function Navbar() {
     // console.log("sub links", subLinks)
 
     const matchRoute = (route) => {//jispe click hia, usko yellow karne ke liye
+        if (!route) return false
         return matchPath({ path: route }, location.pathname)
     }
 
@@ -121,7 +124,7 @@ function Navbar() {
                             )}
                         </Link>
                     )}
-                    {token === null && (//llogin nahi hai, matlab login karvao
+                    {token === null && (//login nahi hai, matlab login karvao
                         <Link to="/login">
                             <button className="rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100">
                                 Log in
@@ -137,10 +140,55 @@ function Navbar() {
                     )}
                     {token !== null && <ProfileDropdown />}
                 </div>
-                <button className="mr-4 md:hidden">
+                {/* <button className="mr-4 md:hidden">
                     <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+                </button> */}
+                {/* hamburger button */}
+                <button
+                    className="mr-4 md:hidden"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    {isOpen ? (
+                        <AiOutlineClose fontSize={24} fill="#AFB2BF" />
+                    ) : (
+                        <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+                    )}
                 </button>
             </div>
+            {/* Mobile Menu - Only shows when isOpen is true and on mobile screens */}
+            {isOpen && (
+                <div className="absolute top-14 left-0 w-full bg-richblack-800 z-[1000] flex flex-col p-4 md:hidden border-b border-richblack-700">
+                    <ul className="flex flex-col gap-y-4 text-richblack-25">
+                        {NavbarLinks.map((link, index) => (
+                            <li key={index}>
+                                <Link to={link?.path} onClick={() => setIsOpen(false)}>
+                                    <p className={`${matchRoute(link?.path) ? "text-yellow-25" : "text-richblack-25"}`}>
+                                        {link.title}
+                                    </p>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Mobile Login / Signup Buttons */}
+                    <div className="flex flex-col gap-y-2 mt-4">
+                        {token === null && (
+                            <Link to="/login" onClick={() => setIsOpen(false)}>
+                                <button className="w-full rounded-[8px] border border-richblack-700 bg-richblack-700 px-[12px] py-[8px] text-richblack-100">
+                                    Log in
+                                </button>
+                            </Link>
+                        )}
+                        {token === null && (
+                            <Link to="/signup" onClick={() => setIsOpen(false)}>
+                                <button className="w-full rounded-[8px] border border-richblack-700 bg-richblack-700 px-[12px] py-[8px] text-richblack-100">
+                                    Sign up
+                                </button>
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

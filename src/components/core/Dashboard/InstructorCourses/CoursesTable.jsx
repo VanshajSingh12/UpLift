@@ -17,6 +17,7 @@ import {
 } from "../../../../services/operations/courseDetailsAPI"
 import { COURSE_STATUS } from "../../../../utils/constants"
 import ConfirmationModal from "../../../common/ConfirmationModal"
+import { convertSecondsToDuration } from "../../../../utils/secToDuration"
 
 export default function CoursesTable({ courses, setCourses }) {
     const dispatch = useDispatch()
@@ -110,7 +111,7 @@ export default function CoursesTable({ courses, setCourses }) {
                                     </div>
                                 </Td>
                                 <Td className="text-sm font-medium text-richblack-100">
-                                    2hr 30min
+                                    {convertSecondsToDuration(course?.totalDuration || 0)}
                                 </Td>
                                 <Td className="text-sm font-medium text-richblack-100">
                                     ₹{course.price}
