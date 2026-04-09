@@ -22,7 +22,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "http://localhost:3000",//3000 is frontend
+        // origin: "http://localhost:3000",//3000 is frontend
+        origin: ["https://up-lift-h5z6eu4cs-vanshajsingh12s-projects.vercel.app", "http://localhost:3000"],
         credentials: true,
     })
 )
