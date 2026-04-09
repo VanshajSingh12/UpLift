@@ -20,13 +20,23 @@ database.connect();
 //middlewares
 app.use(express.json());
 app.use(cookieParser());
+// app.use(
+//     cors({
+//         // origin: "http://localhost:3000",//3000 is frontend
+//         origin: ["https://up-lift-h5z6eu4cs-vanshajsingh12s-projects.vercel.app", "http://localhost:3000"],
+//         credentials: true,
+//     })
+// )
 app.use(
     cors({
-        // origin: "http://localhost:3000",//3000 is frontend
-        origin: ["https://up-lift-h5z6eu4cs-vanshajsingh12s-projects.vercel.app", "http://localhost:3000"],
+        origin: [
+            "https://up-lift-fmwv43mn5-vanshajsingh12s-projects.vercel.app", // The one from your error
+            "https://up-lift-h5z6eu4cs-vanshajsingh12s-projects.vercel.app", // The one you had
+            "http://localhost:3000",
+        ],
         credentials: true,
     })
-)
+);
 
 app.use(
     fileUpload({
