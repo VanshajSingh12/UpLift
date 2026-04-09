@@ -29,11 +29,18 @@ app.use(cookieParser());
 // )
 app.use(
     cors({
-        origin: [
-            "https://up-lift-fmwv43mn5-vanshajsingh12s-projects.vercel.app", // The one from your error
-            "https://up-lift-h5z6eu4cs-vanshajsingh12s-projects.vercel.app", // The one you had
-            "http://localhost:3000",
-        ],
+        origin: function (origin, callback) {
+            const allowedOrigins = [
+                "http://localhost:3000",
+                "https://up-lift-2fq9w58gs-vanshajsingh12s-projects.vercel.app"
+            ];
+            // Allow if the origin is in our list OR if it's a Vercel preview URL
+            if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.includes(".vercel.app")) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
         credentials: true,
     })
 );
